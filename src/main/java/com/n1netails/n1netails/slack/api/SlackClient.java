@@ -10,7 +10,7 @@ public interface SlackClient {
 
     /**
      * Send slack message
-     *
+     * @param slackMessage slack message
      */
-    void sendMessage() throws SlackClientException;
+    void sendMessage(SlackMessage slackMessage) throws SlackClientException;
 }

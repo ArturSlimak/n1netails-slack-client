@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class SlackMessage {
 
+    private String channel;
     private String text;
-    // todo create slack message pojo
 
     /**
      * Slack Message Constructor

@@ -49,6 +49,12 @@
       <version>1.18.38</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.slack.api</groupId>
+      <artifactId>slack-api-client</artifactId>
+      <version>1.45.3</version>
+    </dependency>
   </dependencies>
 
   <profiles>

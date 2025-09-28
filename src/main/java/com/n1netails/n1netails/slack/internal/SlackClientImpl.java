@@ -16,9 +16,10 @@ public class SlackClientImpl implements SlackClient {
 
     /**
      * Send slack notification
+     * @param slackMessage slack message
      */
     @Override
-    public void sendMessage() throws SlackClientException {
-        // todo implement sending message to slack
+    public void sendMessage(com.n1netails.n1netails.slack.model.SlackMessage slackMessage) throws SlackClientException {
+        botService.send(slackMessage);
     }
 }
