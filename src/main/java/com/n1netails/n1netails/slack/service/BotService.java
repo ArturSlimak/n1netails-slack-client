@@ -1,10 +1,10 @@
 package com.n1netails.n1netails.slack.service;
 
+import com.n1netails.n1netails.slack.exception.SlackClientException;
 import com.n1netails.n1netails.slack.model.SlackMessage;
 import com.slack.api.Slack;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
-import lombok.SneakyThrows;
 
 /**
  * Slack Bot Service
@@ -22,13 +22,16 @@ public class BotService {
         this.token = token;
     }
 
-    @SneakyThrows
-    public void send(SlackMessage slackMessage) {
-        MethodsClient methods = Slack.getInstance().methods(token);
-        ChatPostMessageRequest request = ChatPostMessageRequest.builder()
-                .channel(slackMessage.getChannel())
-                .text(slackMessage.getText())
-                .build();
-        methods.chatPostMessage(request);
+    public void send(SlackMessage slackMessage) throws SlackClientException {
+        try {
+            MethodsClient methods = Slack.getInstance().methods(token);
+            ChatPostMessageRequest request = ChatPostMessageRequest.builder()
+                    .channel(slackMessage.getChannel())
+                    .text(slackMessage.getText())
+                    .build();
+            methods.chatPostMessage(request);
+        } catch (Exception e) {
+            throw new SlackClientException("Failed to send Slack message", e);
+        }
     }
 }
