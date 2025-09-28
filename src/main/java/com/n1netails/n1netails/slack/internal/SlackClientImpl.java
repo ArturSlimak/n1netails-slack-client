@@ -2,6 +2,7 @@ package com.n1netails.n1netails.slack.internal;
 
 import com.n1netails.n1netails.slack.api.SlackClient;
 import com.n1netails.n1netails.slack.exception.SlackClientException;
+import com.n1netails.n1netails.slack.model.SlackMessage;
 import com.n1netails.n1netails.slack.service.BotService;
 
 /**
@@ -16,9 +17,14 @@ public class SlackClientImpl implements SlackClient {
 
     /**
      * Send slack notification
+     * @param slackMessage slack message
      */
     @Override
-    public void sendMessage() throws SlackClientException {
-        // todo implement sending message to slack
+    public void sendMessage(SlackMessage slackMessage) throws SlackClientException {
+        try {
+            botService.send(slackMessage);
+        } catch (Exception e) {
+            throw new SlackClientException("Failed to send Slack message", e);
+        }
     }
 }
