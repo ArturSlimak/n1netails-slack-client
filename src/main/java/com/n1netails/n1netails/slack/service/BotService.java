@@ -25,7 +25,7 @@ public class BotService {
     public void send(SlackMessage slackMessage) throws SlackClientException {
         try {
             MethodsClient methods = Slack.getInstance().methods(token);
-            ChatPostMessageRequest.Builder requestBuilder = ChatPostMessageRequest.builder()
+            ChatPostMessageRequest.ChatPostMessageRequestBuilder requestBuilder = ChatPostMessageRequest.builder()
                     .channel(slackMessage.getChannel())
                     .text(slackMessage.getText());
 
