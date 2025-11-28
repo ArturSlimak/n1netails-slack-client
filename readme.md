@@ -6,6 +6,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+![Stars](https://img.shields.io/github/stars/n1netails/n1netails-slack-client)
+![Issues](https://img.shields.io/github/issues/n1netails/n1netails-slack-client)
+![Contributors](https://img.shields.io/github/contributors/n1netails/n1netails-slack-client)
+![Last Commit](https://img.shields.io/github/last-commit/n1netails/n1netails-slack-client)
+
 # Slack Client
 This client allows you to send messages to a Slack channel using a Slack App.
 
@@ -32,8 +37,13 @@ Install the slack client by adding the following dependency:
 <dependency>
     <groupId>com.n1netails</groupId>
     <artifactId>n1netails-slack-client</artifactId>
-    <version>0.1.1</version>
+    <version>0.2.0</version>
 </dependency>
+```
+
+Gradle (Groovy)
+```groovy
+implementation 'com.n1netails:n1netails-slack-client:0.2.0'
 ```
 
 ## Usage
