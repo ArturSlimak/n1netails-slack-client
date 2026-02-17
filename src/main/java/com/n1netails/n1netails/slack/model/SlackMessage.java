@@ -76,8 +76,8 @@ public class SlackMessage {
             }
 
             boolean hasContent = (text != null && !text.isBlank())
-                    || !blocks.isEmpty()
-                    || !rawBlocks.isEmpty();
+                    && (!blocks.isEmpty()
+                    || !rawBlocks.isEmpty());
 
             if (!hasContent) {
                 throw new SlackValidationException(
