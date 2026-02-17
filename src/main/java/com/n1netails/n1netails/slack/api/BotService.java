@@ -1,14 +1,19 @@
 package com.n1netails.n1netails.slack.api;
 
 import com.n1netails.n1netails.slack.exception.SlackClientException;
+import com.n1netails.n1netails.slack.model.SlackBlock;
 import com.n1netails.n1netails.slack.model.SlackMessage;
 import com.slack.api.Slack;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
+import com.slack.api.model.block.LayoutBlock;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Slack Bot Service
@@ -34,9 +39,18 @@ class BotService {
                     ChatPostMessageRequest.builder()
                             .channel(slackMessage.getChannel())
                             .text(slackMessage.getText());
+            List<LayoutBlock> finalBlocks = null;
+            if (slackMessage.getRawBlocks() != null && !slackMessage.getRawBlocks().isEmpty()) {
+                finalBlocks = slackMessage.getRawBlocks();
 
-            if (slackMessage.getBlocks() != null && !slackMessage.getBlocks().isEmpty()) {
-                requestBuilder.blocks(slackMessage.getBlocks());
+            } else if (slackMessage.getBlocks() != null && !slackMessage.getBlocks().isEmpty()) {
+                finalBlocks = slackMessage.getBlocks().stream()
+                        .map(SlackBlock::toLayoutBlock)
+                        .toList();
+            }
+
+            if (finalBlocks != null && !finalBlocks.isEmpty()) {
+                requestBuilder.blocks(finalBlocks);
             }
 
             ChatPostMessageResponse response = methods.chatPostMessage(requestBuilder.build());
@@ -55,8 +69,5 @@ class BotService {
             throw new SlackClientException("slackMessage cannot be null");
         }
 
-        if (slackMessage.getChannel() == null || slackMessage.getChannel().isBlank()) {
-            throw new SlackClientException("Channel must be provided");
-        }
     }
 }
