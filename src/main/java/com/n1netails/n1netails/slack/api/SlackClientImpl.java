@@ -23,11 +23,7 @@ final class SlackClientImpl implements SlackClient {
      */
     @Override
     public void sendMessage(SlackMessage slackMessage) throws SlackClientException {
-        try {
-            botService.send(slackMessage);
-        } catch (Exception e) {
-            throw new SlackClientException("Failed to send Slack message", e);
-        }
+        botService.send(slackMessage);
     }
 
     public static final class Builder implements SlackClient.Builder {
