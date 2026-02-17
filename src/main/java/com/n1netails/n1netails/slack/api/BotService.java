@@ -12,8 +12,7 @@ import com.slack.api.methods.request.chat.ChatPostMessageRequest;
  * @author shahid foy
  */
 class BotService {
-
-    private final String token;
+    private final MethodsClient methods;
 
     /**
      * Bot Service Constructor
@@ -21,12 +20,11 @@ class BotService {
      * @param token slack bot token
      */
     public BotService(String token) {
-        this.token = token;
+        this.methods = Slack.getInstance().methods(token);
     }
 
     public void send(SlackMessage slackMessage) throws SlackClientException {
         try {
-            MethodsClient methods = Slack.getInstance().methods(token);
             ChatPostMessageRequest.ChatPostMessageRequestBuilder requestBuilder = ChatPostMessageRequest.builder()
                     .channel(slackMessage.getChannel())
                     .text(slackMessage.getText());
