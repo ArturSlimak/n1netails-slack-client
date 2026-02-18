@@ -38,32 +38,9 @@ class BotService {
     public void send(SlackMessage slackMessage) throws SlackClientException {
         validateSlackMessage(slackMessage);
         try {
-            ChatPostMessageRequest.ChatPostMessageRequestBuilder requestBuilder =
-                    ChatPostMessageRequest.builder()
-                            .channel(slackMessage.getChannel())
-                            .text(slackMessage.getText());
-
-            List<LayoutBlock> finalBlocks;
-            if (slackMessage.getRawBlocks() != null && !slackMessage.getRawBlocks().isEmpty()) {
-                finalBlocks = slackMessage.getRawBlocks();
-
-            } else if (slackMessage.getBlocks() != null && !slackMessage.getBlocks().isEmpty()) {
-                finalBlocks = slackMessage.getBlocks().stream()
-                        .map(SlackBlock::toLayoutBlock)
-                        .toList();
-            } else
-                finalBlocks = null;
-
-            if (finalBlocks != null && !finalBlocks.isEmpty()) {
-                requestBuilder.blocks(finalBlocks);
-            }
-
-            ChatPostMessageResponse response = methods.chatPostMessage(requestBuilder.build());
-
-            if (!response.isOk()) {
-                throw new SlackApiExceptionWrapper(response.getError());
-            }
-
+            ChatPostMessageRequest request = buildRequest(slackMessage);
+            ChatPostMessageResponse response = executeRequest(request);
+            handleSlackResponse(response);
         } catch (IOException e) {
             throw new SlackTransportException("Network error while calling Slack API", e);
         } catch (SlackApiException e) {
@@ -71,10 +48,43 @@ class BotService {
         }
     }
 
+    private void handleSlackResponse(ChatPostMessageResponse response) throws SlackApiExceptionWrapper {
+        if (!response.isOk()) {
+            throw new SlackApiExceptionWrapper(response.getError());
+        }
+    }
+
+    private ChatPostMessageResponse executeRequest(ChatPostMessageRequest request) throws SlackApiException, IOException {
+        return methods.chatPostMessage(request);
+    }
+
+    private ChatPostMessageRequest buildRequest(SlackMessage slackMessage) {
+        ChatPostMessageRequest.ChatPostMessageRequestBuilder requestBuilder =
+                ChatPostMessageRequest.builder()
+                        .channel(slackMessage.getChannel())
+                        .text(slackMessage.getText());
+
+        List<LayoutBlock> blocks = resolveBlocks(slackMessage);
+        if ((blocks != null && !blocks.isEmpty()))
+            requestBuilder.blocks(blocks);
+        return requestBuilder.build();
+    }
+
+    private List<LayoutBlock> resolveBlocks(SlackMessage slackMessage) {
+        if (slackMessage.getRawBlocks() != null && !slackMessage.getRawBlocks().isEmpty())
+            return slackMessage.getRawBlocks();
+
+        if (slackMessage.getBlocks() != null && !slackMessage.getBlocks().isEmpty()) {
+            return slackMessage.getBlocks().stream()
+                    .map(SlackBlock::toLayoutBlock)
+                    .toList();
+        }
+        return null;
+    }
+
     private void validateSlackMessage(SlackMessage slackMessage) throws SlackClientException {
         if (slackMessage == null) {
             throw new SlackValidationException("slackMessage cannot be null");
         }
-
     }
 }
