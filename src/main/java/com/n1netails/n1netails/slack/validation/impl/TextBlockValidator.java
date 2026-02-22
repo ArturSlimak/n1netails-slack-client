@@ -10,6 +10,5 @@ public class TextBlockValidator implements SlackValidator<TextBlock> {
         if (target.getText() == null || target.getText().isBlank()) {
             throw new SlackValidationException("Text cannot be empty");
         }
-
     }
 }
