@@ -1,5 +1,6 @@
 package com.n1netails.n1netails.slack.model.block;
 
+import com.n1netails.n1netails.slack.exception.SlackValidationException;
 import com.n1netails.n1netails.slack.model.SlackBlock;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.composition.PlainTextObject;
@@ -23,4 +24,18 @@ public class TextBlock implements SlackBlock {
                 .text(new PlainTextObject(text, false))
                 .build();
     }
+
+    public static class Builder {
+        private String text;
+
+        public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public TextBlock build() {
+            return new TextBlock(text);
+        }
+    }
+
 }

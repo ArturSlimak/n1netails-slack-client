@@ -1,5 +1,6 @@
 package com.n1netails.n1netails.slack.model.block;
 
+import com.n1netails.n1netails.slack.exception.SlackValidationException;
 import com.n1netails.n1netails.slack.model.SlackBlock;
 import com.slack.api.model.block.LayoutBlock;
 import lombok.Getter;
@@ -28,5 +29,24 @@ public class ImageBlock implements SlackBlock {
                         .altText(altText)
                         .build()
                 ;
+    }
+
+    public static class Builder {
+        private String imageUrl;
+        private String altText;
+
+        public Builder imageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
+        public Builder altText(String altText) {
+            this.altText = altText;
+            return this;
+        }
+
+        public ImageBlock build() {
+            return new ImageBlock(imageUrl, altText);
+        }
     }
 }

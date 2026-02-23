@@ -1,5 +1,6 @@
 package com.n1netails.n1netails.slack.model.block;
 
+import com.n1netails.n1netails.slack.exception.SlackValidationException;
 import com.n1netails.n1netails.slack.model.SlackBlock;
 import com.slack.api.model.block.LayoutBlock;
 import lombok.Getter;
@@ -27,5 +28,24 @@ public class GifBlock implements SlackBlock {
                         .imageUrl(gifUrl)
                         .build()
                 ;
+    }
+
+    public static class Builder {
+        private String gifUrl;
+        private String altText;
+
+        public Builder gifUrl(String gifUrl) {
+            this.gifUrl = gifUrl;
+            return this;
+        }
+
+        public Builder altText(String altText) {
+            this.altText = altText;
+            return this;
+        }
+
+        public GifBlock build() {
+            return new GifBlock(gifUrl, altText);
+        }
     }
 }
