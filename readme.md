@@ -51,11 +51,9 @@ Here's how to use the client to send a message, pics or gifs:
 
 ```java
 import com.n1netails.n1netails.slack.api.SlackClient;
-import com.n1netails.n1netails.slack.api.SlackClientImpl;
 import com.n1netails.n1netails.slack.model.SlackMessage;
-import com.n1netails.n1netails.slack.api.BotService;
-import com.n1netails.n1netails.slack.model.blocks.GifBlock;
-import com.n1netails.n1netails.slack.model.blocks.TextBlock;
+import com.n1netails.n1netails.slack.model.block.GifBlock;
+import com.n1netails.n1netails.slack.model.block.TextBlock;
 
 public class Example {
     public static void main(String[] args) {

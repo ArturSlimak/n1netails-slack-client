@@ -1,7 +1,7 @@
-package com.n1netails.n1netails.slack.validation.impl;
+package com.n1netails.n1netails.slack.validation.impl.block;
 
 import com.n1netails.n1netails.slack.exception.SlackValidationException;
-import com.n1netails.n1netails.slack.model.blocks.TextBlock;
+import com.n1netails.n1netails.slack.model.block.TextBlock;
 import com.n1netails.n1netails.slack.validation.SlackValidator;
 
 public class TextBlockValidator implements SlackValidator<TextBlock> {

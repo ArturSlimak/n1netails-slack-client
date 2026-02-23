@@ -1,16 +1,17 @@
-package com.n1netails.n1netails.slack.model.blocks;
+package com.n1netails.n1netails.slack.model.block;
 
 import com.n1netails.n1netails.slack.model.SlackBlock;
 import com.slack.api.model.block.LayoutBlock;
 import lombok.Getter;
 
+
 @Getter
-public class GifBlock implements SlackBlock {
-    private final String gifUrl;
+public class ImageBlock implements SlackBlock {
+    private final String imageUrl;
     private final String altText;
 
-    public GifBlock(String gifUrl, String altText) {
-        this.gifUrl = gifUrl;
+    public ImageBlock(String imageUrl, String altText) {
+        this.imageUrl = imageUrl;
         this.altText = altText;
     }
 
@@ -19,8 +20,8 @@ public class GifBlock implements SlackBlock {
     public LayoutBlock toLayoutBlock() {
         return
                 com.slack.api.model.block.ImageBlock.builder()
+                        .imageUrl(imageUrl)
                         .altText(altText)
-                        .imageUrl(gifUrl)
                         .build()
                 ;
     }

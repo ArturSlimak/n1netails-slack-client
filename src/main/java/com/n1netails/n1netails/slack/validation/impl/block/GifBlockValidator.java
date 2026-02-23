@@ -1,7 +1,7 @@
-package com.n1netails.n1netails.slack.validation.impl;
+package com.n1netails.n1netails.slack.validation.impl.block;
 
 import com.n1netails.n1netails.slack.exception.SlackValidationException;
-import com.n1netails.n1netails.slack.model.blocks.GifBlock;
+import com.n1netails.n1netails.slack.model.block.GifBlock;
 import com.n1netails.n1netails.slack.validation.SlackValidator;
 
 public class GifBlockValidator implements SlackValidator<GifBlock> {

@@ -1,4 +1,4 @@
-package com.n1netails.n1netails.slack.model.blocks;
+package com.n1netails.n1netails.slack.model.block;
 
 import com.n1netails.n1netails.slack.model.SlackBlock;
 import com.slack.api.model.block.LayoutBlock;
