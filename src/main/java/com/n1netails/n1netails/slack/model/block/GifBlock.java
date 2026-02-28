@@ -57,6 +57,10 @@ public class GifBlock implements SlackBlock {
                 ;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public List<SlackNode> getChildren() {
         return List.of();

@@ -37,13 +37,13 @@ Install the slack client by adding the following dependency:
 <dependency>
     <groupId>com.n1netails</groupId>
     <artifactId>n1netails-slack-client</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
 Gradle (Groovy)
 ```groovy
-implementation 'com.n1netails:n1netails-slack-client:0.2.0'
+implementation 'com.n1netails:n1netails-slack-client:0.3.0'
 ```
 
 ## Usage
@@ -80,18 +80,19 @@ public class Example {
                 .build();
 
         // Build the Slack message
+        // Build the Slack message
         SlackMessage message = SlackMessage.builder()
                 .channel(channel)
                 .text("New content 🚀") // fallback message for notifications
                 .addBlock(TextBlock.builder().text("New content 🚀").build())
                 .addBlock(ImageBlock.builder()
-                        .imageUrl("YOUR IMG LINK")
-                        .altText("YOUR ALT TEXT")
+                        .imageUrl("https://n1netails.com/img/n1netails_icon_transparent.png")
+                        .altText("N1netails token")
                         .build())
-                .addBlock(ImageBlock.of("YOUR IMG LINK", "YOUR ALT TEXT")) //Blocks support 2 types of creation
+                .addBlock(ImageBlock.of("https://n1netails.com/img/quickstart/n1netails-letter.jpg", "N1netails letter")) //Blocks support 2 types of creation
                 .addBlock(GifBlock.builder()
-                        .gifUrl("YOUR GIF LINK")
-                        .altText("YOUR ALT TEXT")
+                        .gifUrl("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDRhOWtpMnVsM2NiMzJ4aXpoOXpuamZzcHpudG4zbzIzenVlaHN0eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xsE65jaPsUKUo/giphy.gif")
+                        .altText("Fox GIF")
                         .build())
                 .addBlock(actionsBlock) // add the actions block with buttons
                 .build();
